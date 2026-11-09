@@ -1,7 +1,7 @@
 # MT-Bench human judgments (lmsys, CC-BY-4.0). Not gated.
 dataset:
   repo_id: lmsys/mt_bench_human_judgments
-  revision: main
+  revision: f7d2896d2cc5d80f8b55c2bbc722613555233c25  # pinned commit
   local_dir: data/mtbench
 
 agreement:
