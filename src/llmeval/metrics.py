@@ -93,11 +93,15 @@ def cluster_bootstrap(
     """Percentile CI of ``stat`` when whole questions are resampled with replacement."""
     rng = np.random.default_rng(seed)
     n_q = conf_q.shape[0]
+    if n_q == 0:
+        return float("nan"), float("nan")
     draws = rng.integers(0, n_q, size=(n_boot, n_q))
     weights = np.stack([np.bincount(d, minlength=n_q) for d in draws])
     boot_conf = np.einsum("bq,qij->bij", weights, conf_q)
     vals = np.array([stat(c) for c in boot_conf])
     vals = vals[~np.isnan(vals)]
+    if vals.size == 0:
+        return float("nan"), float("nan")
     lo, hi = np.quantile(vals, [alpha / 2, 1 - alpha / 2])
     return float(lo), float(hi)
 

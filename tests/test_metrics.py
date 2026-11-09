@@ -61,6 +61,11 @@ def test_bootstrap_ci_contains_estimate_and_is_seeded():
     assert (lo, hi) == cluster_bootstrap(cq, agreement, n_boot=500, seed=3)
 
 
+def test_no_pairs_gives_nan():
+    r = summarise_pairs(_pairs([]), "S1", n_boot=10)
+    assert r.n_pairs == 0 and np.isnan(r.agreement) and np.isnan(r.ci[0])
+
+
 def test_constant_question_gives_zero_width():
     _, cq = confusion_by_question(_pairs([(1, "first", "first")] * 4))
     assert cluster_bootstrap(cq, agreement, n_boot=50) == (1.0, 1.0)

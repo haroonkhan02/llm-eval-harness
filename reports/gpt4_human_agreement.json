@@ -1,0 +1,233 @@
+{
+  "rows": [
+    {
+      "comparison": "G4-Pair vs Human",
+      "turn": 1,
+      "setup": "S1",
+      "n_pairs": 1689,
+      "agreement": 0.6661,
+      "ci": [
+        0.6285,
+        0.7045
+      ],
+      "kappa": 0.4912,
+      "kappa_ci": [
+        0.435,
+        0.5493
+      ],
+      "chance": 0.3437,
+      "paper_agreement": 0.66,
+      "paper_votes": 1343
+    },
+    {
+      "comparison": "G4-Pair vs Human",
+      "turn": 1,
+      "setup": "S2",
+      "n_pairs": 1060,
+      "agreement": 0.8594,
+      "ci": [
+        0.8274,
+        0.89
+      ],
+      "kappa": 0.7189,
+      "kappa_ci": [
+        0.6542,
+        0.7798
+      ],
+      "chance": 0.5,
+      "paper_agreement": 0.85,
+      "paper_votes": 859
+    },
+    {
+      "comparison": "Human vs Human",
+      "turn": 1,
+      "setup": "S1",
+      "n_pairs": 1198,
+      "agreement": 0.6411,
+      "ci": [
+        0.5955,
+        0.6899
+      ],
+      "kappa": 0.4494,
+      "kappa_ci": [
+        0.3774,
+        0.5224
+      ],
+      "chance": 0.3481,
+      "paper_agreement": 0.63,
+      "paper_votes": 721
+    },
+    {
+      "comparison": "Human vs Human",
+      "turn": 1,
+      "setup": "S2",
+      "n_pairs": 772,
+      "agreement": 0.8199,
+      "ci": [
+        0.7728,
+        0.8673
+      ],
+      "kappa": 0.6399,
+      "kappa_ci": [
+        0.5407,
+        0.7337
+      ],
+      "chance": 0.5,
+      "paper_agreement": 0.81,
+      "paper_votes": 479
+    },
+    {
+      "comparison": "G4-Pair vs Human",
+      "turn": 2,
+      "setup": "S1",
+      "n_pairs": 1666,
+      "agreement": 0.6573,
+      "ci": [
+        0.6214,
+        0.6925
+      ],
+      "kappa": 0.4732,
+      "kappa_ci": [
+        0.4197,
+        0.524
+      ],
+      "chance": 0.3494,
+      "paper_agreement": 0.66,
+      "paper_votes": 1325
+    },
+    {
+      "comparison": "G4-Pair vs Human",
+      "turn": 2,
+      "setup": "S2",
+      "n_pairs": 1069,
+      "agreement": 0.8531,
+      "ci": [
+        0.8204,
+        0.8849
+      ],
+      "kappa": 0.7044,
+      "kappa_ci": [
+        0.6387,
+        0.7684
+      ],
+      "chance": 0.5031,
+      "paper_agreement": 0.85,
+      "paper_votes": 864
+    },
+    {
+      "comparison": "Human vs Human",
+      "turn": 2,
+      "setup": "S1",
+      "n_pairs": 1169,
+      "agreement": 0.6698,
+      "ci": [
+        0.6267,
+        0.7136
+      ],
+      "kappa": 0.4891,
+      "kappa_ci": [
+        0.4215,
+        0.5563
+      ],
+      "chance": 0.3538,
+      "paper_agreement": 0.67,
+      "paper_votes": 707
+    },
+    {
+      "comparison": "Human vs Human",
+      "turn": 2,
+      "setup": "S2",
+      "n_pairs": 778,
+      "agreement": 0.8342,
+      "ci": [
+        0.7976,
+        0.8695
+      ],
+      "kappa": 0.6649,
+      "kappa_ci": [
+        0.5868,
+        0.7385
+      ],
+      "chance": 0.5052,
+      "paper_agreement": 0.82,
+      "paper_votes": 474
+    },
+    {
+      "comparison": "G4-Pair vs Human",
+      "turn": "all",
+      "setup": "S1",
+      "n_pairs": 3355,
+      "agreement": 0.6617,
+      "ci": [
+        0.6316,
+        0.6907
+      ],
+      "kappa": 0.4827,
+      "kappa_ci": [
+        0.4393,
+        0.5243
+      ],
+      "chance": 0.346,
+      "paper_agreement": null,
+      "paper_votes": null
+    },
+    {
+      "comparison": "G4-Pair vs Human",
+      "turn": "all",
+      "setup": "S2",
+      "n_pairs": 2129,
+      "agreement": 0.8563,
+      "ci": [
+        0.8314,
+        0.8814
+      ],
+      "kappa": 0.712,
+      "kappa_ci": [
+        0.6618,
+        0.7617
+      ],
+      "chance": 0.5009,
+      "paper_agreement": null,
+      "paper_votes": null
+    },
+    {
+      "comparison": "Human vs Human",
+      "turn": "all",
+      "setup": "S1",
+      "n_pairs": 2367,
+      "agreement": 0.6553,
+      "ci": [
+        0.6212,
+        0.6911
+      ],
+      "kappa": 0.4696,
+      "kappa_ci": [
+        0.414,
+        0.5233
+      ],
+      "chance": 0.3501,
+      "paper_agreement": null,
+      "paper_votes": null
+    },
+    {
+      "comparison": "Human vs Human",
+      "turn": "all",
+      "setup": "S2",
+      "n_pairs": 1550,
+      "agreement": 0.8271,
+      "ci": [
+        0.795,
+        0.86
+      ],
+      "kappa": 0.6534,
+      "kappa_ci": [
+        0.5871,
+        0.7187
+      ],
+      "chance": 0.5012,
+      "paper_agreement": null,
+      "paper_votes": null
+    }
+  ],
+  "gpt4_inconsistent_rate": 0.1583
+}
