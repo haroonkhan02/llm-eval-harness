@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      # Tests use small synthetic vote tables and a mocked Anthropic client:
+      # no dataset download, no model and no API key needed.
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy pandas pyarrow pyyaml huggingface_hub anthropic pytest ruff
+          pip install -e . --no-deps
+      - name: Lint
+        run: ruff check .
+      - name: Test
+        run: pytest -q

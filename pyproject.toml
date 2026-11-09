@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llm-eval-harness"
+version = "0.1.0"
+description = "Evaluate LLM systems and calibrate LLM judges against human labels, with statistics and regression gating."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Muhammad Haroon Khan" }]
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "numpy>=1.26",
+    "pandas>=2.1",
+    "pyarrow>=14",
+    "pyyaml>=6",
+    "huggingface_hub>=0.24",
+]
+
+[project.optional-dependencies]
+anthropic = ["anthropic>=0.70"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+llmeval-download = "llmeval.download:main"
+llmeval-stats = "llmeval.mtbench:main"
+llmeval-agreement = "llmeval.agreement:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
