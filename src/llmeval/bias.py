@@ -107,7 +107,12 @@ def analyse(j: pd.DataFrame, human: pd.DataFrame, gpt4: pd.DataFrame, n_boot: in
     h = human.merge(keys, on=KEY)
     g = gpt4.merge(keys, on=KEY)
     rows = []
-    variants = {**judge_variants(j), "released GPT-4 judge (same keys)": g}
+    jv = judge_variants(j)
+    consistent_keys = jv["swap, abstain on disagreement"][KEY]
+    variants = {**jv, "released GPT-4 judge (same keys)": g,
+                # Abstaining keeps the easier keys; compare GPT-4 on exactly those.
+                "released GPT-4 judge (judge-consistent keys only)":
+                    g.merge(consistent_keys, on=KEY)}
     for name, votes in variants.items():
         pairs = pair_judge_vs_reference(votes, h)
         for setup in ("S1", "S2"):
@@ -119,7 +124,7 @@ def analyse(j: pd.DataFrame, human: pd.DataFrame, gpt4: pd.DataFrame, n_boot: in
     length = {
         "judge (every call)": longer_wins(calls, j, min_ratio, n_boot, seed),
         "judge (swap-consistent)": longer_wins(
-            judge_variants(j)["swap, abstain on disagreement"], j, min_ratio, n_boot, seed),
+            jv["swap, abstain on disagreement"], j, min_ratio, n_boot, seed),
         "human experts": longer_wins(h, j, min_ratio, n_boot, seed),
         "released GPT-4 judge": longer_wins(g[~g["inconsistent"]], j, min_ratio, n_boot, seed),
     }
@@ -141,10 +146,10 @@ def to_markdown(results: dict[str, dict], n_boot: int, min_ratio: float) -> str:
         out += [f"## {name}", "",
                 f"{p['keys']} keys, {p['unparsed']} without a parsable verdict in one of "
                 "the two orders.", "",
-                "| Variant | Setup | Pairs with humans | Agreement % [95 % CI] | "
-                "Kappa [95 % CI] |", "|---|---|---|---|---|"]
+                "| Variant | Setup | Judge keys | Pairs with humans | Agreement % [95 % CI] | "
+                "Kappa [95 % CI] |", "|---|---|---|---|---|---|"]
         for a in r["agreement"]:
-            out.append(f"| {a['variant']} | {a['setup']} | {a['n_pairs']} | "
+            out.append(f"| {a['variant']} | {a['setup']} | {a['judge_keys']} | {a['n_pairs']} | "
                        f"{_pct(a['agreement'])} [{_pct(a['ci'][0])}, {_pct(a['ci'][1])}] | "
                        f"{a['kappa']:.3f} [{a['kappa_ci'][0]:.3f}, {a['kappa_ci'][1]:.3f}] |")
         out += ["", "Position bias (per call; A = the answer shown first):", "",
