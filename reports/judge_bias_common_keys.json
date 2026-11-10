@@ -1,0 +1,514 @@
+{
+  "llama-3.2-3b": {
+    "agreement": [
+      {
+        "variant": "single order (model_1 first)",
+        "judge_keys": 197,
+        "setup": "S1",
+        "n_pairs": 379,
+        "agreement": 0.5145,
+        "ci": [
+          0.4485,
+          0.5803
+        ],
+        "kappa": 0.2174,
+        "kappa_ci": [
+          0.1312,
+          0.3057
+        ],
+        "chance": 0.3797
+      },
+      {
+        "variant": "single order (model_1 first)",
+        "judge_keys": 197,
+        "setup": "S2",
+        "n_pairs": 281,
+        "agreement": 0.6868,
+        "ci": [
+          0.6154,
+          0.7551
+        ],
+        "kappa": 0.3686,
+        "kappa_ci": [
+          0.2322,
+          0.4985
+        ],
+        "chance": 0.504
+      },
+      {
+        "variant": "single order (model_2 first)",
+        "judge_keys": 197,
+        "setup": "S1",
+        "n_pairs": 379,
+        "agreement": 0.5673,
+        "ci": [
+          0.5056,
+          0.6298
+        ],
+        "kappa": 0.3107,
+        "kappa_ci": [
+          0.2277,
+          0.3961
+        ],
+        "chance": 0.3723
+      },
+      {
+        "variant": "single order (model_2 first)",
+        "judge_keys": 197,
+        "setup": "S2",
+        "n_pairs": 283,
+        "agreement": 0.742,
+        "ci": [
+          0.6753,
+          0.8053
+        ],
+        "kappa": 0.4865,
+        "kappa_ci": [
+          0.3532,
+          0.6106
+        ],
+        "chance": 0.4976
+      },
+      {
+        "variant": "swap, disagreement -> tie",
+        "judge_keys": 197,
+        "setup": "S1",
+        "n_pairs": 379,
+        "agreement": 0.5198,
+        "ci": [
+          0.4511,
+          0.5956
+        ],
+        "kappa": 0.2951,
+        "kappa_ci": [
+          0.1995,
+          0.3976
+        ],
+        "chance": 0.3187
+      },
+      {
+        "variant": "swap, disagreement -> tie",
+        "judge_keys": 197,
+        "setup": "S2",
+        "n_pairs": 168,
+        "agreement": 0.8512,
+        "ci": [
+          0.7878,
+          0.9057
+        ],
+        "kappa": 0.6976,
+        "kappa_ci": [
+          0.5638,
+          0.8047
+        ],
+        "chance": 0.5079
+      },
+      {
+        "variant": "swap, abstain on disagreement",
+        "judge_keys": 111,
+        "setup": "S1",
+        "n_pairs": 209,
+        "agreement": 0.6938,
+        "ci": [
+          0.6141,
+          0.775
+        ],
+        "kappa": 0.4846,
+        "kappa_ci": [
+          0.3734,
+          0.6016
+        ],
+        "chance": 0.4059
+      },
+      {
+        "variant": "swap, abstain on disagreement",
+        "judge_keys": 111,
+        "setup": "S2",
+        "n_pairs": 168,
+        "agreement": 0.8512,
+        "ci": [
+          0.7906,
+          0.9073
+        ],
+        "kappa": 0.6976,
+        "kappa_ci": [
+          0.5674,
+          0.8107
+        ],
+        "chance": 0.5079
+      },
+      {
+        "variant": "released GPT-4 judge (same keys)",
+        "judge_keys": 200,
+        "setup": "S1",
+        "n_pairs": 382,
+        "agreement": 0.6806,
+        "ci": [
+          0.6156,
+          0.7424
+        ],
+        "kappa": 0.5105,
+        "kappa_ci": [
+          0.4125,
+          0.6036
+        ],
+        "chance": 0.3475
+      },
+      {
+        "variant": "released GPT-4 judge (same keys)",
+        "judge_keys": 200,
+        "setup": "S2",
+        "n_pairs": 251,
+        "agreement": 0.8367,
+        "ci": [
+          0.7692,
+          0.901
+        ],
+        "kappa": 0.673,
+        "kappa_ci": [
+          0.5355,
+          0.7991
+        ],
+        "chance": 0.5004
+      },
+      {
+        "variant": "released GPT-4 judge (judge-consistent keys only)",
+        "judge_keys": 111,
+        "setup": "S1",
+        "n_pairs": 209,
+        "agreement": 0.7033,
+        "ci": [
+          0.6291,
+          0.783
+        ],
+        "kappa": 0.5309,
+        "kappa_ci": [
+          0.4094,
+          0.6484
+        ],
+        "chance": 0.3676
+      },
+      {
+        "variant": "released GPT-4 judge (judge-consistent keys only)",
+        "judge_keys": 111,
+        "setup": "S2",
+        "n_pairs": 149,
+        "agreement": 0.8389,
+        "ci": [
+          0.7518,
+          0.9143
+        ],
+        "kappa": 0.6679,
+        "kappa_ci": [
+          0.473,
+          0.8228
+        ],
+        "chance": 0.515
+      }
+    ],
+    "position": {
+      "keys": 200,
+      "parsed": 197,
+      "unparsed": 3,
+      "calls": 394,
+      "p_first_shown": 0.6041,
+      "p_second_shown": 0.368,
+      "p_tie": 0.0279,
+      "inconsistent_rate": 0.4365,
+      "inconsistent_favour_first": 63,
+      "inconsistent_favour_second": 16,
+      "inconsistent_other": 7,
+      "gpt4_inconsistent_rate_same_keys": 0.16
+    },
+    "length": {
+      "judge (every call)": {
+        "n": 225,
+        "p_longer_wins": 0.7333,
+        "ci": [
+          0.6555,
+          0.8063
+        ]
+      },
+      "judge (swap-consistent)": {
+        "n": 78,
+        "p_longer_wins": 0.8333,
+        "ci": [
+          0.7229,
+          0.9306
+        ]
+      },
+      "human experts": {
+        "n": 178,
+        "p_longer_wins": 0.7247,
+        "ci": [
+          0.625,
+          0.8107
+        ]
+      },
+      "released GPT-4 judge": {
+        "n": 100,
+        "p_longer_wins": 0.78,
+        "ci": [
+          0.6939,
+          0.8617
+        ]
+      }
+    }
+  },
+  "qwen2.5-7b": {
+    "agreement": [
+      {
+        "variant": "single order (model_1 first)",
+        "judge_keys": 200,
+        "setup": "S1",
+        "n_pairs": 382,
+        "agreement": 0.5654,
+        "ci": [
+          0.5,
+          0.6288
+        ],
+        "kappa": 0.3045,
+        "kappa_ci": [
+          0.2148,
+          0.3932
+        ],
+        "chance": 0.3751
+      },
+      {
+        "variant": "single order (model_1 first)",
+        "judge_keys": 200,
+        "setup": "S2",
+        "n_pairs": 279,
+        "agreement": 0.7527,
+        "ci": [
+          0.6788,
+          0.8244
+        ],
+        "kappa": 0.5035,
+        "kappa_ci": [
+          0.3586,
+          0.6454
+        ],
+        "chance": 0.5019
+      },
+      {
+        "variant": "single order (model_2 first)",
+        "judge_keys": 200,
+        "setup": "S1",
+        "n_pairs": 382,
+        "agreement": 0.5707,
+        "ci": [
+          0.5025,
+          0.6373
+        ],
+        "kappa": 0.3172,
+        "kappa_ci": [
+          0.2209,
+          0.4145
+        ],
+        "chance": 0.3712
+      },
+      {
+        "variant": "single order (model_2 first)",
+        "judge_keys": 200,
+        "setup": "S2",
+        "n_pairs": 286,
+        "agreement": 0.7308,
+        "ci": [
+          0.6585,
+          0.803
+        ],
+        "kappa": 0.4639,
+        "kappa_ci": [
+          0.3207,
+          0.6046
+        ],
+        "chance": 0.4978
+      },
+      {
+        "variant": "swap, disagreement -> tie",
+        "judge_keys": 200,
+        "setup": "S1",
+        "n_pairs": 382,
+        "agreement": 0.5262,
+        "ci": [
+          0.4539,
+          0.6011
+        ],
+        "kappa": 0.2929,
+        "kappa_ci": [
+          0.1894,
+          0.397
+        ],
+        "chance": 0.3299
+      },
+      {
+        "variant": "swap, disagreement -> tie",
+        "judge_keys": 200,
+        "setup": "S2",
+        "n_pairs": 189,
+        "agreement": 0.8519,
+        "ci": [
+          0.7864,
+          0.9149
+        ],
+        "kappa": 0.7023,
+        "kappa_ci": [
+          0.5631,
+          0.8265
+        ],
+        "chance": 0.5024
+      },
+      {
+        "variant": "swap, abstain on disagreement",
+        "judge_keys": 136,
+        "setup": "S1",
+        "n_pairs": 250,
+        "agreement": 0.668,
+        "ci": [
+          0.5882,
+          0.7446
+        ],
+        "kappa": 0.4665,
+        "kappa_ci": [
+          0.3564,
+          0.5786
+        ],
+        "chance": 0.3777
+      },
+      {
+        "variant": "swap, abstain on disagreement",
+        "judge_keys": 136,
+        "setup": "S2",
+        "n_pairs": 189,
+        "agreement": 0.8519,
+        "ci": [
+          0.7801,
+          0.9146
+        ],
+        "kappa": 0.7023,
+        "kappa_ci": [
+          0.5586,
+          0.8252
+        ],
+        "chance": 0.5024
+      },
+      {
+        "variant": "released GPT-4 judge (same keys)",
+        "judge_keys": 200,
+        "setup": "S1",
+        "n_pairs": 382,
+        "agreement": 0.6806,
+        "ci": [
+          0.6156,
+          0.7424
+        ],
+        "kappa": 0.5105,
+        "kappa_ci": [
+          0.4125,
+          0.6036
+        ],
+        "chance": 0.3475
+      },
+      {
+        "variant": "released GPT-4 judge (same keys)",
+        "judge_keys": 200,
+        "setup": "S2",
+        "n_pairs": 251,
+        "agreement": 0.8367,
+        "ci": [
+          0.7692,
+          0.901
+        ],
+        "kappa": 0.673,
+        "kappa_ci": [
+          0.5355,
+          0.7991
+        ],
+        "chance": 0.5004
+      },
+      {
+        "variant": "released GPT-4 judge (judge-consistent keys only)",
+        "judge_keys": 136,
+        "setup": "S1",
+        "n_pairs": 250,
+        "agreement": 0.74,
+        "ci": [
+          0.6736,
+          0.8015
+        ],
+        "kappa": 0.5964,
+        "kappa_ci": [
+          0.4978,
+          0.6829
+        ],
+        "chance": 0.3557
+      },
+      {
+        "variant": "released GPT-4 judge (judge-consistent keys only)",
+        "judge_keys": 136,
+        "setup": "S2",
+        "n_pairs": 175,
+        "agreement": 0.8914,
+        "ci": [
+          0.8303,
+          0.943
+        ],
+        "kappa": 0.7825,
+        "kappa_ci": [
+          0.6586,
+          0.8817
+        ],
+        "chance": 0.5008
+      }
+    ],
+    "position": {
+      "keys": 200,
+      "parsed": 200,
+      "unparsed": 0,
+      "calls": 400,
+      "p_first_shown": 0.5775,
+      "p_second_shown": 0.3775,
+      "p_tie": 0.045,
+      "inconsistent_rate": 0.32,
+      "inconsistent_favour_first": 48,
+      "inconsistent_favour_second": 8,
+      "inconsistent_other": 8,
+      "gpt4_inconsistent_rate_same_keys": 0.16
+    },
+    "length": {
+      "judge (every call)": {
+        "n": 226,
+        "p_longer_wins": 0.6903,
+        "ci": [
+          0.6049,
+          0.765
+        ]
+      },
+      "judge (swap-consistent)": {
+        "n": 89,
+        "p_longer_wins": 0.7303,
+        "ci": [
+          0.619,
+          0.8248
+        ]
+      },
+      "human experts": {
+        "n": 178,
+        "p_longer_wins": 0.7247,
+        "ci": [
+          0.625,
+          0.8107
+        ]
+      },
+      "released GPT-4 judge": {
+        "n": 100,
+        "p_longer_wins": 0.78,
+        "ci": [
+          0.6939,
+          0.8617
+        ]
+      }
+    }
+  }
+}
