@@ -10,11 +10,10 @@ A small library and CLI for evaluating LLM systems, with a focus on the judge it
 how often does an LLM-as-judge agree with human experts, how biased is it, and when is a
 drop in quality between two runs real rather than noise.
 
-**Work in progress.** The MT-Bench data pipeline, the agreement statistics and the
-pairwise judge (with A/B swapping, an Anthropic backend and a JSONL run store) work, and
-the published GPT-4-judge vs. human agreement reproduces from the released votes. Next:
-local open-weight judges via MLX, a position- and length-bias study, and a regression
-gate that fails a pull request when quality drops.
+**Work in progress.** The MT-Bench pipeline, the agreement statistics, the pairwise judge
+(Anthropic and local MLX backends, A/B swapping, a JSONL run store) and a position- and
+length-bias study of two local judges work. Next: error analysis of where the judges and
+experts disagree, and a regression gate that fails a pull request when quality drops.
 
 ## What it does
 
@@ -25,6 +24,8 @@ gate that fails a pull request when quality drops.
 - Judges a pair of answers twice with the order swapped and keeps the verdict only when
   both orders agree.
 - Logs every model call (tokens, cost, latency, refusals) to a resumable JSONL store.
+- Runs open-weight judges locally on Apple silicon (MLX) and measures their position and
+  length bias against the same expert votes.
 
 ## Sanity check: GPT-4 vs. human experts
 
@@ -47,6 +48,31 @@ small sample. GPT-4 also changed its verdict when the answer order was swapped o
 of its pairwise judgments, which is the position bias the next part studies.
 Full table with kappa: [reports/gpt4_human_agreement.md](reports/gpt4_human_agreement.md).
 
+## Local judges: position bias and swapping
+
+Two 4-bit open-weight models judged 200 turn-1 MT-Bench pairs (seeded sample of keys with
+expert votes), each pair in both answer orders. Llama-3.2-3B also judged 200 more keys;
+its 400-key numbers are in [reports/judge_bias.md](reports/judge_bias.md). Agreement is
+with the expert votes on the same keys, ties included (S1).
+
+| Judge (same 200 keys) | First answer wins / second | Verdict flips on swap | One order | Swap, flip → tie | Swap, abstain on flip (coverage) |
+|---|---|---|---|---|---|
+| Llama-3.2-3B-Instruct | 60.4 / 36.8 % | 43.6 % | 51.4–56.7 % | 52.0 % | 69.4 % (56 %) |
+| Qwen2.5-7B-Instruct | 57.8 / 37.8 % | 32.0 % | 56.5–57.1 % | 52.6 % | 66.8 % (68 %) |
+| Released GPT-4 votes | – | 16.0 % | – | 68.1 % | 70.3 / 74.0 % on the same subsets |
+
+Both local judges prefer whichever answer is shown first, and flip their verdict two to
+three times as often as GPT-4 did. Swapping and turning flips into ties does not raise
+agreement with ties included, because the forced ties rarely match an expert's vote.
+Abstaining on flips does: on the pairs where a local judge is order-consistent it agrees
+with experts about as often as GPT-4 does on those same pairs, but it only answers on
+56–68 % of them, and those are the easier pairs. Without ties (S2), the abstaining judges
+reach 85 % on that subset. Longer answers won 69–73 % of the local judges' decisive calls
+against 72.5 % of expert votes (answers differing by at least 1.5x in words), so on this
+sample there is no sign of a length bias beyond what experts show. The intervals are wide
+(about ±7 points), so the 3B vs. 7B differences are not significant. Full tables with
+kappa and S2: [reports/judge_bias_common_keys.md](reports/judge_bias_common_keys.md).
+
 ## Repository structure
 
 ```text
@@ -58,9 +84,12 @@ llm-eval-harness/
 │   ├── metrics.py              # agreement, kappa, cluster bootstrap
 │   ├── agreement.py            # llmeval-agreement: GPT-4 vs. human sanity check
 │   ├── judge.py                # prompt, [[A]]/[[B]]/[[C]] parser, swap-and-aggregate
-│   ├── backends.py             # Fake and Anthropic backends with cost and latency
-│   └── store.py                # resumable JSONL run store
+│   ├── backends.py             # Fake, Anthropic and MLX backends with cost and latency
+│   ├── store.py                # resumable JSONL run store
+│   ├── run_judge.py            # llmeval-judge: judge pairs in both orders
+│   └── bias.py                 # llmeval-bias: agreement, position and length bias
 ├── reports/                    # generated tables
+│   └── judgments/              # compact verdicts of each judge run (no model text)
 └── tests/                      # synthetic votes and a mocked Anthropic client
 ```
 
@@ -68,10 +97,13 @@ llm-eval-harness/
 
 ```bash
 uv venv --python 3.12 && source .venv/bin/activate
-uv pip install -e ".[dev,anthropic]"
+uv pip install -e ".[dev,anthropic,mlx]"
 llmeval-download        # ~1.4 MB of parquet into data/mtbench
 llmeval-stats           # reports/dataset_stats.md
 llmeval-agreement       # reports/gpt4_human_agreement.md
+llmeval-judge --backend mlx:mlx-community/Qwen2.5-7B-Instruct-4bit \
+              --name qwen2.5-7b --n-keys 200      # about 10 s per pair on an M5
+llmeval-bias llama-3.2-3b qwen2.5-7b --common-keys --out reports/judge_bias_common_keys
 pytest -q
 ```
 
