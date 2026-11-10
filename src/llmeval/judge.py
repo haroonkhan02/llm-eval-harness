@@ -13,6 +13,8 @@ from dataclasses import dataclass, field
 
 from llmeval.backends import Backend, Completion
 
+PROMPT_VERSION = "v1"
+
 SYSTEM_PROMPT = (
     "You are an impartial reviewer comparing two AI assistants' answers to the same user "
     "request. Judge helpfulness, correctness, depth and how well each answer follows the "

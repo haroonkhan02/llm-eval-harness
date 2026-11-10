@@ -3,7 +3,8 @@
 - ``FakeBackend``: deterministic, for tests and pipeline smoke runs.
 - ``AnthropicBackend``: Claude via the Anthropic SDK. The client is injectable so tests
   never touch the network. Requires an Anthropic API key at run time.
-- A local MLX backend follows in the next step of the project.
+- ``MLXBackend``: an open-weight model running locally on Apple silicon via ``mlx-lm``
+  (greedy decoding, no API cost). The loader is injectable so tests need no model.
 """
 
 from __future__ import annotations
@@ -109,4 +110,46 @@ class AnthropicBackend:
             input_tokens=usage.input_tokens, output_tokens=usage.output_tokens,
             latency_s=latency, stop_reason=stop,
             cost_usd=cost_usd(served_by, usage.input_tokens, usage.output_tokens),
+        )
+
+
+class MLXBackend:
+    """Local judge on Apple silicon. Greedy decoding, so a run is deterministic.
+
+    ``loader`` and ``generator`` default to ``mlx_lm.load`` / ``mlx_lm.stream_generate``;
+    tests pass fakes. Cost is reported as 0 (no API bill; the hardware is the cost).
+    """
+
+    def __init__(self, model: str, max_tokens: int = 512, loader=None, generator=None):
+        if loader is None or generator is None:
+            import mlx_lm
+
+            loader = loader or mlx_lm.load
+            generator = generator or mlx_lm.stream_generate
+        self.model, self.tokenizer = loader(model)
+        self._generate = generator
+        self.model_id = model
+        self.max_tokens = max_tokens
+        self.name = f"mlx:{model.split('/')[-1]}"
+
+    def _prompt(self, system: str, user: str) -> str:
+        messages = [{"role": "system", "content": system}, {"role": "user", "content": user}]
+        return self.tokenizer.apply_chat_template(
+            messages, tokenize=False, add_generation_prompt=True)
+
+    def complete(self, system: str, user: str) -> Completion:
+        prompt = self._prompt(system, user)
+        t0 = time.perf_counter()
+        text, last = [], None
+        for last in self._generate(self.model, self.tokenizer, prompt,
+                                   max_tokens=self.max_tokens):
+            text.append(last.text)
+        latency = time.perf_counter() - t0
+        finish = getattr(last, "finish_reason", None) if last is not None else None
+        return Completion(
+            text="".join(text), model=self.model_id,
+            input_tokens=int(getattr(last, "prompt_tokens", 0) or 0),
+            output_tokens=int(getattr(last, "generation_tokens", 0) or 0),
+            latency_s=latency,
+            stop_reason="max_tokens" if finish == "length" else "end_turn",
         )

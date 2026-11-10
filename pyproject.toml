@@ -20,12 +20,15 @@ dependencies = [
 
 [project.optional-dependencies]
 anthropic = ["anthropic>=0.70"]
+mlx = ["mlx-lm>=0.28"]
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [project.scripts]
 llmeval-download = "llmeval.download:main"
 llmeval-stats = "llmeval.mtbench:main"
 llmeval-agreement = "llmeval.agreement:main"
+llmeval-judge = "llmeval.run_judge:main"
+llmeval-bias = "llmeval.bias:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

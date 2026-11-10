@@ -16,3 +16,10 @@ judge:
   model: claude-opus-5-5
   effort: low
   max_tokens: 4000
+
+# Local judge runs (llmeval-judge): keys with human votes, judged in both answer orders.
+judge_run:
+  turns: [1]
+  n_keys: 400        # seeded random order, so a larger n extends a smaller run
+  seed: 0
+  max_tokens: 400
