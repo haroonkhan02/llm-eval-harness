@@ -128,7 +128,9 @@ def analyse(j: pd.DataFrame, human: pd.DataFrame, gpt4: pd.DataFrame, n_boot: in
         "human experts": longer_wins(h, j, min_ratio, n_boot, seed),
         "released GPT-4 judge": longer_wins(g[~g["inconsistent"]], j, min_ratio, n_boot, seed),
     }
-    return {"agreement": rows, "position": position_stats(j), "length": length}
+    position = position_stats(j)
+    position["gpt4_inconsistent_rate_same_keys"] = round(float(g["inconsistent"].mean()), 4)
+    return {"agreement": rows, "position": position, "length": length}
 
 
 def _pct(x) -> str:
@@ -159,7 +161,8 @@ def to_markdown(results: dict[str, dict], n_boot: int, min_ratio: float) -> str:
                 f"{_pct(p['inconsistent_rate'])} % of keys: "
                 f"{p['inconsistent_favour_first']} favour the first position both times, "
                 f"{p['inconsistent_favour_second']} the second, "
-                f"{p['inconsistent_other']} involve a tie", "",
+                f"{p['inconsistent_other']} involve a tie (released GPT-4 on the same keys: "
+                f"{_pct(p['gpt4_inconsistent_rate_same_keys'])} %)", "",
                 f"Length bias (decisive votes, longer answer at least {min_ratio:g}x the "
                 "words of the shorter):", "",
                 "| Voter | Votes | Longer answer wins % [95 % CI] |", "|---|---|---|"]
@@ -175,6 +178,8 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("names", nargs="+", help="run names under reports/judgments/")
     ap.add_argument("--config", default=None)
     ap.add_argument("--min-ratio", type=float, default=1.5)
+    ap.add_argument("--common-keys", action="store_true",
+                    help="score every run only on the keys all runs have judged")
     ap.add_argument("--out", default="reports/judge_bias")
     args = ap.parse_args(argv)
     cfg = load_config(args.config)
@@ -182,10 +187,14 @@ def main(argv: list[str] | None = None) -> None:
     n_boot, seed = int(cfg["agreement"]["n_boot"]), int(cfg["agreement"]["seed"])
     human = load_split(data_dir, "human")
     gpt4 = load_split(data_dir, "gpt4_pair")
-    results = {}
-    for name in args.names:
-        j = load_judgments(resolve(f"reports/judgments/{name}.csv"))
-        results[name] = analyse(j, human, gpt4, n_boot, seed, args.min_ratio)
+    runs = {n: load_judgments(resolve(f"reports/judgments/{n}.csv")) for n in args.names}
+    if args.common_keys:
+        common = None
+        for j in runs.values():
+            common = j[KEY] if common is None else common.merge(j[KEY], on=KEY)
+        runs = {n: j.merge(common, on=KEY) for n, j in runs.items()}
+    results = {n: analyse(j, human, gpt4, n_boot, seed, args.min_ratio)
+               for n, j in runs.items()}
     md = to_markdown(results, n_boot, args.min_ratio)
     out = resolve(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)

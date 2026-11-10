@@ -74,6 +74,7 @@ def test_analyse_and_markdown(tmp_path):
     assert by[("swap, abstain on disagreement", "S1")]["agreement"] == 1.0
     assert by[("swap, disagreement -> tie", "S1")]["n_pairs"] == 8
     assert r["position"]["inconsistent_rate"] == 0.25
+    assert r["position"]["gpt4_inconsistent_rate_same_keys"] == 0.0
     md = to_markdown({"toy": r}, 50, 1.5)
     assert "## toy" in md and "Longer answer wins" in md and "released GPT-4" in md
     assert by[("released GPT-4 judge (judge-consistent keys only)", "S1")]["judge_keys"] == 3
