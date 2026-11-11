@@ -31,6 +31,9 @@ llmeval-agreement = "llmeval.agreement:main"
 llmeval-judge = "llmeval.run_judge:main"
 llmeval-bias = "llmeval.bias:main"
 llmeval-errors = "llmeval.errors:main"
+llmeval-gate = "llmeval.gate:main"
+llmeval-scores = "llmeval.gate:scores_main"
+llmeval-gate-study = "llmeval.gate_study:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
