@@ -1,0 +1,408 @@
+{
+  "params": {
+    "max_drop": 0.02,
+    "alpha": 0.05,
+    "n_sims": 200,
+    "n_boot": 1000,
+    "population": 1814
+  },
+  "comparisons": [
+    {
+      "comparison": "Qwen2.5-7B, answer order swapped",
+      "kind": "same judge",
+      "drop": {
+        "n_items": 200,
+        "baseline_mean": 0.5567,
+        "candidate_mean": 0.5814,
+        "delta": 0.0247,
+        "ci": [
+          -0.0204,
+          0.0673
+        ],
+        "n_better": 25,
+        "n_worse": 21,
+        "n_same": 154,
+        "p_worse": 0.7693,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": true,
+        "reason": "no significant drop beyond the tolerance"
+      },
+      "noninferior": {
+        "n_items": 200,
+        "baseline_mean": 0.5567,
+        "candidate_mean": 0.5814,
+        "delta": 0.0247,
+        "ci": [
+          -0.0204,
+          0.0673
+        ],
+        "n_better": 25,
+        "n_worse": 21,
+        "n_same": 154,
+        "p_worse": 0.7693,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "lower bound -0.020 < -0.02: no-worse not shown"
+      }
+    },
+    {
+      "comparison": "Llama-3.2-3B (400 keys), answer order swapped",
+      "kind": "same judge",
+      "drop": {
+        "n_items": 394,
+        "baseline_mean": 0.5262,
+        "candidate_mean": 0.5691,
+        "delta": 0.0429,
+        "ci": [
+          0.0051,
+          0.0826
+        ],
+        "n_better": 69,
+        "n_worse": 50,
+        "n_same": 275,
+        "p_worse": 0.9669,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": true,
+        "reason": "no significant drop beyond the tolerance"
+      },
+      "noninferior": {
+        "n_items": 394,
+        "baseline_mean": 0.5262,
+        "candidate_mean": 0.5691,
+        "delta": 0.0429,
+        "ci": [
+          0.0051,
+          0.0826
+        ],
+        "n_better": 69,
+        "n_worse": 50,
+        "n_same": 275,
+        "p_worse": 0.9669,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": true,
+        "reason": "lower bound 0.005 >= -0.02"
+      }
+    },
+    {
+      "comparison": "Llama-3.2-3B (400 keys), order swapped the other way",
+      "kind": "same judge",
+      "drop": {
+        "n_items": 394,
+        "baseline_mean": 0.5691,
+        "candidate_mean": 0.5262,
+        "delta": -0.0429,
+        "ci": [
+          -0.0826,
+          -0.0051
+        ],
+        "n_better": 50,
+        "n_worse": 69,
+        "n_same": 275,
+        "p_worse": 0.0493,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "drop of 0.043 > 0.02 with sign-test p = 0.0493 < 0.05"
+      },
+      "noninferior": {
+        "n_items": 394,
+        "baseline_mean": 0.5691,
+        "candidate_mean": 0.5262,
+        "delta": -0.0429,
+        "ci": [
+          -0.0826,
+          -0.0051
+        ],
+        "n_better": 50,
+        "n_worse": 69,
+        "n_same": 275,
+        "p_worse": 0.0493,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "lower bound -0.083 < -0.02: no-worse not shown"
+      }
+    },
+    {
+      "comparison": "Qwen2.5-7B -> Llama-3.2-3B, swap and flip -> tie",
+      "kind": "cheaper judge",
+      "drop": {
+        "n_items": 197,
+        "baseline_mean": 0.5682,
+        "candidate_mean": 0.5503,
+        "delta": -0.0179,
+        "ci": [
+          -0.071,
+          0.0285
+        ],
+        "n_better": 29,
+        "n_worse": 29,
+        "n_same": 139,
+        "p_worse": 0.5522,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": true,
+        "reason": "no significant drop beyond the tolerance"
+      },
+      "noninferior": {
+        "n_items": 197,
+        "baseline_mean": 0.5682,
+        "candidate_mean": 0.5503,
+        "delta": -0.0179,
+        "ci": [
+          -0.071,
+          0.0285
+        ],
+        "n_better": 29,
+        "n_worse": 29,
+        "n_same": 139,
+        "p_worse": 0.5522,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "lower bound -0.071 < -0.02: no-worse not shown"
+      }
+    },
+    {
+      "comparison": "Qwen2.5-7B -> Llama-3.2-3B, one order",
+      "kind": "cheaper judge",
+      "drop": {
+        "n_items": 197,
+        "baseline_mean": 0.555,
+        "candidate_mean": 0.5118,
+        "delta": -0.0431,
+        "ci": [
+          -0.0904,
+          -0.003
+        ],
+        "n_better": 17,
+        "n_worse": 25,
+        "n_same": 155,
+        "p_worse": 0.14,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": true,
+        "reason": "no significant drop beyond the tolerance"
+      },
+      "noninferior": {
+        "n_items": 197,
+        "baseline_mean": 0.555,
+        "candidate_mean": 0.5118,
+        "delta": -0.0431,
+        "ci": [
+          -0.0904,
+          -0.003
+        ],
+        "n_better": 17,
+        "n_worse": 25,
+        "n_same": 155,
+        "p_worse": 0.14,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "lower bound -0.090 < -0.02: no-worse not shown"
+      }
+    },
+    {
+      "comparison": "GPT-4 -> Qwen2.5-7B, swap and flip -> tie",
+      "kind": "local vs. GPT-4",
+      "drop": {
+        "n_items": 200,
+        "baseline_mean": 0.6793,
+        "candidate_mean": 0.5647,
+        "delta": -0.1146,
+        "ci": [
+          -0.177,
+          -0.0578
+        ],
+        "n_better": 14,
+        "n_worse": 44,
+        "n_same": 142,
+        "p_worse": 0.0001,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "drop of 0.115 > 0.02 with sign-test p = 5.02e-05 < 0.05"
+      },
+      "noninferior": {
+        "n_items": 200,
+        "baseline_mean": 0.6793,
+        "candidate_mean": 0.5647,
+        "delta": -0.1146,
+        "ci": [
+          -0.177,
+          -0.0578
+        ],
+        "n_better": 14,
+        "n_worse": 44,
+        "n_same": 142,
+        "p_worse": 0.0001,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "lower bound -0.177 < -0.02: no-worse not shown"
+      }
+    },
+    {
+      "comparison": "GPT-4 -> Llama-3.2-3B, swap and flip -> tie",
+      "kind": "local vs. GPT-4",
+      "drop": {
+        "n_items": 197,
+        "baseline_mean": 0.6794,
+        "candidate_mean": 0.5503,
+        "delta": -0.1291,
+        "ci": [
+          -0.1965,
+          -0.062
+        ],
+        "n_better": 22,
+        "n_worse": 51,
+        "n_same": 124,
+        "p_worse": 0.0005,
+        "rule": "drop",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "drop of 0.129 > 0.02 with sign-test p = 0.000457 < 0.05"
+      },
+      "noninferior": {
+        "n_items": 197,
+        "baseline_mean": 0.6794,
+        "candidate_mean": 0.5503,
+        "delta": -0.1291,
+        "ci": [
+          -0.1965,
+          -0.062
+        ],
+        "n_better": 22,
+        "n_worse": 51,
+        "n_same": 124,
+        "p_worse": 0.0005,
+        "rule": "noninferior",
+        "max_drop": 0.02,
+        "alpha": 0.05,
+        "passed": false,
+        "reason": "lower bound -0.197 < -0.02: no-worse not shown"
+      }
+    }
+  ],
+  "churn": {
+    "qwen2.5-7b": 0.23,
+    "llama-3.2-3b": 0.302,
+    "used": 0.266
+  },
+  "power": [
+    {
+      "n_items": 100,
+      "injected_drop": 0.0,
+      "fail_rate_drop": 0.03,
+      "fail_rate_noninferior": 0.84
+    },
+    {
+      "n_items": 100,
+      "injected_drop": 0.02,
+      "fail_rate_drop": 0.115,
+      "fail_rate_noninferior": 0.99
+    },
+    {
+      "n_items": 100,
+      "injected_drop": 0.05,
+      "fail_rate_drop": 0.275,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 100,
+      "injected_drop": 0.1,
+      "fail_rate_drop": 0.81,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 200,
+      "injected_drop": 0.0,
+      "fail_rate_drop": 0.03,
+      "fail_rate_noninferior": 0.755
+    },
+    {
+      "n_items": 200,
+      "injected_drop": 0.02,
+      "fail_rate_drop": 0.125,
+      "fail_rate_noninferior": 0.98
+    },
+    {
+      "n_items": 200,
+      "injected_drop": 0.05,
+      "fail_rate_drop": 0.55,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 200,
+      "injected_drop": 0.1,
+      "fail_rate_drop": 0.955,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 400,
+      "injected_drop": 0.0,
+      "fail_rate_drop": 0.035,
+      "fail_rate_noninferior": 0.59
+    },
+    {
+      "n_items": 400,
+      "injected_drop": 0.02,
+      "fail_rate_drop": 0.225,
+      "fail_rate_noninferior": 0.965
+    },
+    {
+      "n_items": 400,
+      "injected_drop": 0.05,
+      "fail_rate_drop": 0.805,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 400,
+      "injected_drop": 0.1,
+      "fail_rate_drop": 1.0,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 800,
+      "injected_drop": 0.0,
+      "fail_rate_drop": 0.025,
+      "fail_rate_noninferior": 0.395
+    },
+    {
+      "n_items": 800,
+      "injected_drop": 0.02,
+      "fail_rate_drop": 0.405,
+      "fail_rate_noninferior": 0.98
+    },
+    {
+      "n_items": 800,
+      "injected_drop": 0.05,
+      "fail_rate_drop": 0.99,
+      "fail_rate_noninferior": 1.0
+    },
+    {
+      "n_items": 800,
+      "injected_drop": 0.1,
+      "fail_rate_drop": 1.0,
+      "fail_rate_noninferior": 1.0
+    }
+  ]
+}
