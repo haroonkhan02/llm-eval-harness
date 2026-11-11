@@ -21,6 +21,7 @@ dependencies = [
 [project.optional-dependencies]
 anthropic = ["anthropic>=0.70"]
 mlx = ["mlx-lm>=0.28"]
+plots = ["matplotlib>=3.8"]
 dev = ["pytest>=8", "ruff>=0.6"]
 
 [project.scripts]
@@ -29,6 +30,7 @@ llmeval-stats = "llmeval.mtbench:main"
 llmeval-agreement = "llmeval.agreement:main"
 llmeval-judge = "llmeval.run_judge:main"
 llmeval-bias = "llmeval.bias:main"
+llmeval-errors = "llmeval.errors:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
