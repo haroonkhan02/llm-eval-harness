@@ -1,0 +1,408 @@
+{
+  "n_keys": 197,
+  "n_questions": 72,
+  "prices_per_1m_tokens": {
+    "llama-3.2-3b": [
+      0.06,
+      0.06
+    ],
+    "qwen2.5-7b": [
+      0.3,
+      0.3
+    ],
+    "gpt4": [
+      30.0,
+      60.0
+    ]
+  },
+  "mean_tokens_per_key": {
+    "llama-3.2-3b": [
+      1206.3,
+      405.9
+    ],
+    "qwen2.5-7b": [
+      1178.4,
+      162.1
+    ],
+    "gpt4": [
+      1178.4,
+      162.1
+    ]
+  },
+  "mean_local_seconds_per_key": {
+    "llama-3.2-3b": 7.24,
+    "qwen2.5-7b": 9.29
+  },
+  "tier_cost_ratio_vs_llama": {
+    "llama-3.2-3b": 1.0,
+    "qwen2.5-7b": 4.2,
+    "gpt4": 466.0
+  },
+  "policies": [
+    {
+      "name": "always llama-3.2-3b",
+      "score": 0.5503,
+      "cost": 9.7e-05,
+      "share_by_tier": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "share_top": 0.0,
+      "score_ci": [
+        0.484,
+        0.62
+      ],
+      "cost_per_1k": 0.1
+    },
+    {
+      "name": "always qwen2.5-7b",
+      "score": 0.5682,
+      "cost": 0.000402,
+      "share_by_tier": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "share_top": 0.0,
+      "score_ci": [
+        0.507,
+        0.6335
+      ],
+      "cost_per_1k": 0.4
+    },
+    {
+      "name": "always gpt4",
+      "score": 0.6794,
+      "cost": 0.045075,
+      "share_by_tier": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "share_top": 1.0,
+      "score_ci": [
+        0.6156,
+        0.7446
+      ],
+      "cost_per_1k": 45.07
+    },
+    {
+      "name": "llama > qwen > gpt4",
+      "score": 0.6511,
+      "cost": 0.010474,
+      "share_by_tier": [
+        0.563,
+        0.234,
+        0.203
+      ],
+      "share_top": 0.203,
+      "score_ci": [
+        0.5865,
+        0.7174
+      ],
+      "cost_per_1k": 10.47
+    },
+    {
+      "name": "llama > qwen > gpt4 (tie escalates too)",
+      "score": 0.6511,
+      "cost": 0.011223,
+      "share_by_tier": [
+        0.553,
+        0.223,
+        0.223
+      ],
+      "share_top": 0.223,
+      "score_ci": [
+        0.5865,
+        0.7174
+      ],
+      "cost_per_1k": 11.22
+    },
+    {
+      "name": "llama > gpt4",
+      "score": 0.671,
+      "cost": 0.020112,
+      "share_by_tier": [
+        0.563,
+        0.437
+      ],
+      "share_top": 0.437,
+      "score_ci": [
+        0.6062,
+        0.7363
+      ],
+      "cost_per_1k": 20.11
+    },
+    {
+      "name": "llama > gpt4 (tie escalates too)",
+      "score": 0.671,
+      "cost": 0.020496,
+      "share_by_tier": [
+        0.553,
+        0.447
+      ],
+      "share_top": 0.447,
+      "score_ci": [
+        0.6062,
+        0.7363
+      ],
+      "cost_per_1k": 20.5
+    },
+    {
+      "name": "llama > gpt4, maths/reasoning/coding straight to gpt4",
+      "score": 0.6845,
+      "cost": 0.028018,
+      "share_by_tier": [
+        0.386,
+        0.614
+      ],
+      "share_top": 0.614,
+      "score_ci": [
+        0.6184,
+        0.7483
+      ],
+      "cost_per_1k": 28.02
+    },
+    {
+      "name": "qwen > gpt4",
+      "score": 0.6409,
+      "cost": 0.014928,
+      "share_by_tier": [
+        0.69,
+        0.31
+      ],
+      "share_top": 0.31,
+      "score_ci": [
+        0.5798,
+        0.7072
+      ],
+      "cost_per_1k": 14.93
+    },
+    {
+      "name": "oracle (uses expert labels)",
+      "score": 0.808,
+      "cost": 0.005725,
+      "share_by_tier": [
+        0.716,
+        0.147,
+        0.137
+      ],
+      "share_top": 0.137,
+      "score_ci": [
+        0.7511,
+        0.8617
+      ],
+      "cost_per_1k": 5.72
+    }
+  ],
+  "vs_always_gpt4": {
+    "llama > qwen > gpt4": {
+      "vs_gpt4_delta": -0.0283,
+      "ci": [
+        -0.0781,
+        0.0212
+      ],
+      "cost_saving": 0.7676
+    },
+    "llama > gpt4": {
+      "vs_gpt4_delta": -0.0085,
+      "ci": [
+        -0.0491,
+        0.0312
+      ],
+      "cost_saving": 0.5538
+    },
+    "qwen > gpt4": {
+      "vs_gpt4_delta": -0.0385,
+      "ci": [
+        -0.0796,
+        0.0008
+      ],
+      "cost_saving": 0.6688
+    },
+    "llama > gpt4 (tie escalates too)": {
+      "vs_gpt4_delta": -0.0085,
+      "ci": [
+        -0.0491,
+        0.0312
+      ],
+      "cost_saving": 0.5453
+    }
+  },
+  "vs_random_mix_same_cost": {
+    "llama > gpt4": {
+      "score_minus_random_mix": 0.0632,
+      "ci": [
+        0.0217,
+        0.1023
+      ],
+      "random_mix_p_top": 0.445
+    },
+    "llama > qwen > gpt4": {
+      "score_minus_random_mix": 0.071,
+      "ci": [
+        0.0164,
+        0.1281
+      ],
+      "random_mix_p_top": 0.231
+    },
+    "qwen > gpt4": {
+      "score_minus_random_mix": 0.0366,
+      "ci": [
+        0.0022,
+        0.068
+      ],
+      "random_mix_p_top": 0.325
+    }
+  },
+  "pareto": [
+    "always llama-3.2-3b",
+    "always qwen2.5-7b",
+    "llama > qwen > gpt4",
+    "llama > gpt4",
+    "llama > gpt4, maths/reasoning/coding straight to gpt4"
+  ],
+  "flip_rate_by_tier": {
+    "llama-3.2-3b": 0.4365,
+    "qwen2.5-7b": 0.3096,
+    "gpt4": 0.1574
+  },
+  "escalation_precision": {
+    "llama-3.2-3b": {
+      "sure_keys": 111,
+      "unsure_keys": 86,
+      "score_when_sure": 0.6923,
+      "score_when_unsure": 0.3671
+    },
+    "qwen2.5-7b": {
+      "sure_keys": 136,
+      "unsure_keys": 61,
+      "score_when_sure": 0.6717,
+      "score_when_unsure": 0.3374
+    },
+    "gpt4": {
+      "sure_keys": 166,
+      "unsure_keys": 31,
+      "score_when_sure": 0.7022,
+      "score_when_unsure": 0.5575
+    }
+  },
+  "hard_categories_share": 0.35,
+  "frontier": {
+    "llama-3.2-3b -> gpt4": [
+      {
+        "p": 0.0,
+        "score": 0.5503,
+        "cost": 9.7e-05
+      },
+      {
+        "p": 0.1,
+        "score": 0.5632,
+        "cost": 0.004595
+      },
+      {
+        "p": 0.2,
+        "score": 0.5762,
+        "cost": 0.009092
+      },
+      {
+        "p": 0.3,
+        "score": 0.5891,
+        "cost": 0.01359
+      },
+      {
+        "p": 0.4,
+        "score": 0.602,
+        "cost": 0.018088
+      },
+      {
+        "p": 0.5,
+        "score": 0.6149,
+        "cost": 0.022586
+      },
+      {
+        "p": 0.6,
+        "score": 0.6278,
+        "cost": 0.027083
+      },
+      {
+        "p": 0.7,
+        "score": 0.6407,
+        "cost": 0.031581
+      },
+      {
+        "p": 0.8,
+        "score": 0.6536,
+        "cost": 0.036079
+      },
+      {
+        "p": 0.9,
+        "score": 0.6665,
+        "cost": 0.040577
+      },
+      {
+        "p": 1.0,
+        "score": 0.6794,
+        "cost": 0.045075
+      }
+    ],
+    "qwen2.5-7b -> gpt4": [
+      {
+        "p": 0.0,
+        "score": 0.5682,
+        "cost": 0.000402
+      },
+      {
+        "p": 0.1,
+        "score": 0.5793,
+        "cost": 0.004869
+      },
+      {
+        "p": 0.2,
+        "score": 0.5904,
+        "cost": 0.009337
+      },
+      {
+        "p": 0.3,
+        "score": 0.6016,
+        "cost": 0.013804
+      },
+      {
+        "p": 0.4,
+        "score": 0.6127,
+        "cost": 0.018271
+      },
+      {
+        "p": 0.5,
+        "score": 0.6238,
+        "cost": 0.022738
+      },
+      {
+        "p": 0.6,
+        "score": 0.6349,
+        "cost": 0.027206
+      },
+      {
+        "p": 0.7,
+        "score": 0.6461,
+        "cost": 0.031673
+      },
+      {
+        "p": 0.8,
+        "score": 0.6572,
+        "cost": 0.03614
+      },
+      {
+        "p": 0.9,
+        "score": 0.6683,
+        "cost": 0.040607
+      },
+      {
+        "p": 1.0,
+        "score": 0.6794,
+        "cost": 0.045075
+      }
+    ]
+  }
+}
