@@ -23,3 +23,12 @@ judge_run:
   n_keys: 400        # seeded random order, so a larger n extends a smaller run
   seed: 0
   max_tokens: 400
+
+# Cost-aware router (llmeval-router). USD per 1M tokens (input, output). Illustrative
+# hosted list prices for models of these sizes; the local runs themselves cost nothing.
+# Replace with your provider's prices; the policy ranking depends on the price ratio.
+router:
+  prices:
+    llama-3.2-3b: [0.06, 0.06]
+    qwen2.5-7b: [0.30, 0.30]
+    gpt4: [30.0, 60.0]
