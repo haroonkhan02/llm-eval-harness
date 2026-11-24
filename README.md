@@ -22,6 +22,8 @@ go wrong, and when is a drop in quality between two runs real rather than noise.
   consensus and how close the two models are.
 - Gates regressions: a paired sign test and bootstrap on per-item scores, run by a
   GitHub Action that fails a pull request when the candidate is worse than the baseline.
+- Routes judging by cost: a cascade asks the cheap judge first and escalates to a stronger
+  one only when its verdict flips on the answer swap.
 
 ```mermaid
 flowchart LR
@@ -96,6 +98,26 @@ is no more than 2 points worse (non-inferiority) is much harder: that rule fails
 of unchanged candidates at 100–800 items.
 [reports/regression_gate.md](reports/regression_gate.md)
 
+**Cost-aware router.** Llama-3.2-3B judges first; if its verdict flips when the answers are
+swapped, Qwen2.5-7B judges; if that flips too, GPT-4 (the released votes) decides. On the
+197 turn-1 keys all three judged, agreement with the experts (ties included):
+
+| Policy | Agreement [95 % CI] | Keys reaching GPT-4 | Cost per 1,000 keys |
+|---|---|---|---|
+| Always Llama-3.2-3B | 55.0 [48.4, 62.0] | 0 % | $0.10 |
+| Always GPT-4 | 67.9 [61.6, 74.5] | 100 % | $45.07 |
+| Llama → GPT-4 | 67.1 [60.6, 73.6] | 44 % | $20.11 |
+| Llama → Qwen → GPT-4 | 65.1 [58.7, 71.7] | 20 % | $10.47 |
+
+Llama → GPT-4 is within 1 point of always using GPT-4 (−0.9 [−4.9, +3.1]) for 55 % less;
+the three-tier cascade gives up 2.8 points (not significant) for 77 % less. A flip is a
+real warning sign: Llama agrees with the experts 69 % of the time when its orders agree
+and 37 % when they don't. At the same cost, sending a random share of keys to GPT-4
+instead scores 6–7 points lower. An oracle that knew the expert labels would reach 80.8 %,
+so there is headroom the flip signal doesn't capture. Costs use illustrative list prices
+(`configs/mtbench.yaml`) and estimated GPT-4 token counts; the share of keys reaching GPT-4
+is the price-free number. [reports/router.md](reports/router.md)
+
 ## Repository structure
 
 ```text
@@ -113,7 +135,9 @@ llm-eval-harness/
 │   ├── bias.py                 # llmeval-bias: agreement, position and length bias
 │   ├── errors.py               # llmeval-errors: disagreement by category, consensus, gap
 │   ├── gate.py                 # llmeval-gate / llmeval-scores: paired regression gate
-│   └── gate_study.py           # llmeval-gate-study: gate on real runs + power simulation
+│   ├── gate_study.py           # llmeval-gate-study: gate on real runs + power simulation
+│   ├── router.py               # cascade router: live (route_pair) and offline replay
+│   └── router_study.py         # llmeval-router: quality vs. cost of routing policies
 ├── evals/                      # baseline and candidate scores checked by the gate workflow
 ├── reports/                    # generated tables and figures; judgments/ = verdict CSVs
 ├── .github/workflows/          # ci.yml (lint + tests), eval-gate.yml (blocks regressions)
@@ -132,6 +156,7 @@ llmeval-judge --backend mlx:mlx-community/Qwen2.5-7B-Instruct-4bit \
 llmeval-bias llama-3.2-3b qwen2.5-7b --common-keys --out reports/judge_bias_common_keys
 llmeval-errors llama-3.2-3b qwen2.5-7b
 llmeval-gate-study
+llmeval-router          # reports/router.md (needs the two judge runs above)
 pytest -q
 ```
 
@@ -159,6 +184,8 @@ mock it.
   maths and reasoning, and that is where my judges fail most. Next step.
 - Expert labels are noisy (split votes), which caps any judge's agreement.
 - The power numbers come from a simple churn model, not from repeated real runs.
+- The router is evaluated on 197 keys from 72 questions, so its intervals are wide, and
+  GPT-4 stands in as the top tier through its released votes rather than a live call.
 
 ## License
 
